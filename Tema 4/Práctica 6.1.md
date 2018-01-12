@@ -113,56 +113,56 @@ INSERT INTO EMPLEADOS VALUES(550, 780, '10/01/1970', '21/01/1998', 600,  120,  0
 ## CONSULTAS SENCILLAS
 -----------------------------
 
--- 1. Departamentos con director en funciones.
+####1. Departamentos con director en funciones.
 
 SELECT D.NOMDE
 FROM DEPARTAMENTOS D
 WHERE TIDIR = 'F'
 order by D.NOMDE;
 
--- 2. Teléfonos de empleados del departamento 121.
+####2. Teléfonos de empleados del departamento 121.
 
 SELECT E.NOMEM, E.NUMEM, E.EXTEL
 FROM EMPLEADOS E
 WHERE E.NUMDE = 121
 order by E.NOMEM;
 
--- 3. Extención teléfonica de los empleados del departamento 121.
+####3. Extención teléfonica de los empleados del departamento 121.
 
 SELECT E.NOMEM "Nombre", E.EXTEL "Extensión Teléfonica"
 FROM EMPLEADOS E
 WHERE E.NUMDE = 110
 order by E.EXTEL;
 
--- 4. Comisión, nombre y salario de los empleados que tienen tres hijos.
+####4. Comisión, nombre y salario de los empleados que tienen tres hijos.
 
 SELECT E.COMIS, E.NOMEM, E.SALAR
 FROM EMPLEADOS E
 WHERE NUMHI = 3
 order by E.COMIS, E.NOMEM;
 
--- 5. Comisión, nombre y salario de los empleados que tienen tres hijos, y tiene comisión.
+####5. Comisión, nombre y salario de los empleados que tienen tres hijos, y tiene comisión.
 
 SELECT E.COMIS, E.NOMEM, E.SALAR
 FROM EMPLEADOS E
 WHERE NUMHI = 3 AND E.COMIS is not null
 order by E.COMIS;
 
--- 6. Salario y nombre de los empleados sin hijos y cuyo salario es mayor que 1200 y menor que 1500 €.
+####6. Salario y nombre de los empleados sin hijos y cuyo salario es mayor que 1200 y menor que 1500 €.
 
 SELECT SALAR, NOMEM
 FROM EMPLEADOS
 WHERE NUMHI = 0 AND SALAR > 1200 AND SALAR < 1500
 order by SALAR DESC, NOMEM;
 
--- 7. Números de los departamentos donde trabajan empleados cuyo salario sea inferior a 1500 €.
+####7. Números de los departamentos donde trabajan empleados cuyo salario sea inferior a 1500 €.
 
 SELECT DISTINCT NUMDE
 FROM empleados 
 WHERE SALAR < 1500
 order by 1;
 
--- 8. Obtener las distintas comisiones que hay en el departamento 110.
+####8. Obtener las distintas comisiones que hay en el departamento 110.
 
 SELECT DISTINCT comis
 FROM empleados
@@ -173,14 +173,14 @@ order by 1;
 ## CONSULTAS CON PREDICADOS BÁSICOS
 ------------------------------
 
--- 1. Departamentos cuyo presupuesto es inferior a 30.000 €.
+####1. Departamentos cuyo presupuesto es inferior a 30.000 €.
 
 SELECT 'DEPARTAMENTO DE ' || nomde AS "NOMBRE"
 FROM DEPARTAMENTOS
 WHERE presu < 30
 ORDER BY 1; 
 
--- 2. Número y nombre de departamento separados por guión, ademas de el tipo de director de aquellos departamentos con presupuesto inferior a 30000.
+####2. Número y nombre de departamento separados por guión, ademas de el tipo de director de aquellos departamentos con presupuesto inferior a 30000.
 
 SELECT numde ||'-'|| nomde AS "Número-nombre", 
   tidir AS "Tipo de Director"
@@ -188,7 +188,7 @@ FROM DEPARTAMENTOS
 WHERE presu < 30
 ORDER BY 1; 
 
--- 3. Empleados con más de 4 hijos su nombre y su sueldo anual, actual y para cada uno de los próximos dos años.
+####3. Empleados con más de 4 hijos su nombre y su sueldo anual, actual y para cada uno de los próximos dos años.
 
 SELECT nomem "Nombre", 12*salar AS "Salario 2014", 
   12*1.02*salar AS "Salario 2015", 
@@ -197,35 +197,35 @@ FROM EMPLEADOS
 WHERE numhi > 4
 ORDER BY 1; 
 
--- 4. 
+####4
 
 SELECT nomem
 FROM EMPLEADOS
 WHERE 120*numhi > 0.2*salar
 ORDER BY 1; 
 
--- 5
+####5
 
 SELECT nomem AS "NOMBRE", salar+comis AS "SALARIO TOTAL"
 FROM EMPLEADOS
 WHERE numde = 112
 ORDER BY 2 DESC, 1; 
 
--- 6
+####6
 
 SELECT nomem AS "NOMBRE", salar+NVL(comis, 0) AS "SALARIO TOTAL"
 FROM EMPLEADOS
 WHERE numde = 112 
 ORDER BY 2 DESC, 1 ASC; 
 
--- 7
+####7
 
 SELECT nomem AS "NOMBRE", salar+NVL(comis, 0)|| ' €' AS "SALARIO TOTAL"
 FROM EMPLEADOS
 WHERE numde = 112 
 ORDER BY 2 DESC, 1 ASC; 
 
--- 8
+####8
 
 SELECT nomem AS "NOMBRE",
 Salar+60*(numhi-3) || ' €' AS "SALARIO TOTAL"
@@ -233,7 +233,7 @@ FROM EMPLEADOS
 WHERE numhi >= 4
 ORDER BY 1; 
 
--- 9
+####9
 
 SELECT nomem AS "NOMBRE", 
   salar+60*(numhi-3) || ' €' AS "SALARIO TOTAL"
@@ -243,7 +243,7 @@ WHERE numhi >= (SELECT numhi
                 WHERE nomem='JULIANA')
 ORDER BY 1; 
 
--- 10
+####10
 
 SELECT nomem
 FROM EMPLEADOS
@@ -252,7 +252,7 @@ WHERE salar >= 1.15*(SELECT salar
                      WHERE nomem='CLAUDIA')
 ORDER BY 1;
 
--- otra forma de hacerlo:
+####otra forma de hacerlo:
 
 SELECT nomem
 FROM EMPLEADOS
@@ -261,7 +261,7 @@ WHERE salar >=(SELECT 1.15*salar
                WHERE nomem='CLAUDIA')
 ORDER BY 1; 
 
--- 11
+####11
 
 SELECT nomde
 FROM DEPARTAMENTOS
@@ -271,7 +271,7 @@ WHERE depde IS NULL;
 ## Consultas con Predicados Cuantificados: ALL, SOME o ANY.
 -----------------------------------------------------------
 
--- 1
+####1
 
 SELECT nomem
 FROM EMPLEADOS
@@ -280,7 +280,7 @@ WHERE salar >ALL (SELECT salar
                   WHERE numde=122)
 ORDER BY 1; 
 
--- 2
+####2
 
 SELECT nomem
 FROM EMPLEADOS
@@ -289,7 +289,7 @@ WHERE salar >ALL (SELECT salar
                   WHERE numde=150)
 ORDER BY 1; 
 
--- 3
+####3
 
 SELECT nomem
 FROM EMPLEADOS
@@ -298,13 +298,13 @@ WHERE salar >SOME (SELECT 2.5*salar
                    WHERE numde=122)
 ORDER BY 1; 
 
--- 4
+####4
 
 SELECT nomem, salar
 FROM EMPLEADOS
 WHERE salar =SOME (SELECT comis*10 FROM EMPLEADOS); 
 
--- 5
+####5
 
 SELECT nomem, salar
 FROM EMPLEADOS
@@ -313,7 +313,7 @@ WHERE salar >ALL (SELECT comis*20
                   WHERE comis IS NOT NULL)
 ORDER BY 1; 
 
--- 6
+####6
 
 SELECT nomem, salar
 FROM EMPLEADOS
@@ -326,14 +326,14 @@ ORDER BY 1;
 ## Consultas con Predicados BETWEEN 
 -----------------------------------
 
--- 1
+####1
 
 SELECT nomem
 FROM EMPLEADOS
 WHERE salar BETWEEN 1500 AND 1600
 ORDER BY 1;
 
--- 2
+####2
 
 SELECT nomem, salar
 FROM EMPLEADOS
@@ -344,21 +344,21 @@ ORDER BY 1;
 ## LIKE
 ------------------------
 
--- 1
+####1
 
 SELECT nomem "Nombre", salar || '€' AS "Salario" 
 FROM EMPLEADOS
 WHERE nomem LIKE 'A%'
 ORDER BY 1;
 
--- 2
+####2
 
 SELECT nomem 
 FROM EMPLEADOS
 WHERE nomem LIKE '________'
 ORDER BY 1;
 
--- 3
+####3
 
 SELECT 'DEPARTAMENTO DE ' || nomde AS "Departamento", presu ||'.000' || '€' AS "Presupuesto"
 FROM DEPARTAMENTOS
@@ -369,14 +369,14 @@ ORDER BY 1;
 ## Consultas con Predicados IN
 -------------------------------
 
--- 1
+####1
 
 SELECT nomem
 FROM EMPLEADOS
 WHERE extel IN (250, 750)
 ORDER BY 1;
 
--- 2
+####2
 
 SELECT nomem 
 FROM EMPLEADOS
@@ -385,7 +385,7 @@ WHERE numde IN (SELECT numde
                WHERE nomem IN('PILAR', 'DOROTEA'))
 ORDER BY 1;
 
--- 3
+####3
 
 SELECT nomde "Nombres Departamentos", direc "Identificador de su director"
 FROM DEPARTAMENTOS
@@ -398,7 +398,7 @@ ORDER BY 2 DESC;
 ## Consultas con Predicados EXISTS
 ----------------------------------
 
--- 1
+####1
 
 SELECT nomce
 FROM CENTROS
@@ -406,7 +406,7 @@ WHERE EXISTS (SELECT *
              FROM CENTROS
              WHERE dirce LIKE '%ATOCHA%');
 			 
--- 2
+####2
 	
 SELECT nomem, salar
 FROM empleados
@@ -415,7 +415,7 @@ AND EXISTS (SELECT *
              FROM empleados
              WHERE numde = 100 AND salar > 1300);
 
--- 3			 
+####3			 
 
 SELECT nomem, salar
 FROM empleados
@@ -424,19 +424,19 @@ AND EXISTS (SELECT *
             FROM EMPLEADOS
             WHERE numde = 100 AND salar > 2750);
 			
-~~~ .sql
+
 SELECT nomem, salar
 FROM empleados
 WHERE numde = 100
 AND EXISTS (SELECT *
            FROM empleados
            WHERE numde = 100 AND salar > 3000);
-~~~
+
 ----------------------------------
 ## Más Consultas con Predicados
 ----------------------------------
 
--- 1
+####1
 
 SELECT nomem, comis
 FROM EMPLEADOS
@@ -446,26 +446,26 @@ AND EXISTS (SELECT *
 			WHERE numde = 110 AND comis is not null)
 ORDER BY 1;
 
--- 2
+####2
 
 SELECT nomde 
 FROM DEPARTAMENTOS
 WHERE nomde NOT LIKE 'SECTOR%' AND nomde NOT LIKE 'DIRECC%';
 
--- 3
+####3
 
 SELECT nomem "NOMBRE", salar || '€' AS "SALARIO"
 FROM EMPLEADOS
 WHERE (numhi = 0 AND salar > 1500) OR (numhi != 0 AND salar<1000)
 ORDER BY 1;
 
--- 4
+####4
 
 SELECT 'nº'|| numem AS "NÚMERO EMPLEADO", nomem "NOMBRE", salar+comis || '€' AS "SALARIO TOTAL"
 FROM EMPLEADOS
 WHERE (salar+comis)>= 1800;
 
--- 5
+####5
 
 SELECT nomem, salar
 FROM empleados
@@ -475,13 +475,13 @@ AND EXISTS (SELECT *
            WHERE comis > ((salar * 15) /100))
 ORDER BY 1;
 
--- 6
+####6
 
 SELECT nomde "Nombre de Departamento", tidir "Tipo director", presu "Presupuesto"
 FROM departamentos
 WHERE presu > 30 or depde is null;
 
--- 7
+####7
 
 SELECT nomde "Nombre de Departamento", tidir "Tipo director", presu || '.000' AS "Presupuesto"
 FROM departamentos
