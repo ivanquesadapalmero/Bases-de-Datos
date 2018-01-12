@@ -1,3 +1,6 @@
+A contini lasdkjfh askldjfh askljdfh askljdfh aklsjd f:
+ 
+~~~
 ---------------------------------
 -- ALTER SESSION
 ---------------------------------
@@ -485,6 +488,7 @@ WHERE presu > 30 or depde is null;
 SELECT nomde "Nombre de Departamento", tidir "Tipo director", presu || '.000' AS "Presupuesto"
 FROM departamentos
 WHERE presu > 30 or depde is null;
+~~~
 
 
 
