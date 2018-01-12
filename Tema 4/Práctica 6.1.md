@@ -1,22 +1,22 @@
 
 ~~~
----------------------------------
+
 ## ALTER SESSION
----------------------------------
+
 
 ALTER SESSION SET NLS_DATE_FORMAT='DD/MM/YYYY';
 
 
----------------------------------
+
 ## BORRAR TABLAS ANTIGUAS
----------------------------------
+
 DROP TABLE CENTROS CASCADE CONSTRAINTS;
 DROP TABLE DEPARTAMENTOS CASCADE CONSTRAINTS;
 DROP TABLE EMPLEADOS CASCADE CONSTRAINTS;
 
----------------------------------
+
 ## CREAR TABLAS
----------------------------------
+
 create table CENTROS(
 	NUMCE NUMBER(4),  
 	NOMCE VARCHAR2(25),  
@@ -53,9 +53,9 @@ create table EMPLEADOS(
 );
 
 
----------------------------------
+
 ## INSERTAR DATOS
----------------------------------
+
 
 -- CENTROS (Numce, Nomce, Se�as)
 INSERT INTO CENTROS VALUES(10, 'SEDE CENTRAL', 'C/ATOCHA, 820, MADRID');
@@ -109,9 +109,9 @@ INSERT INTO EMPLEADOS VALUES(510, 550, '04/05/1966', '01/11/1986', 1200, NULL, 1
 INSERT INTO EMPLEADOS VALUES(550, 780, '10/01/1970', '21/01/1998', 600,  120,  0,'SANCHO', 111);
 
 
------------------------------
+
 ## CONSULTAS SENCILLAS
------------------------------
+
 
 ####1. Departamentos con director en funciones.
 
@@ -169,9 +169,9 @@ FROM empleados
 WHERE numde = 110 AND comis is not null
 order by 1;
 
-------------------------------
+
 ## CONSULTAS CON PREDICADOS BÁSICOS
-------------------------------
+
 
 ####1. Departamentos cuyo presupuesto es inferior a 30.000 €.
 
@@ -267,9 +267,9 @@ SELECT nomde
 FROM DEPARTAMENTOS
 WHERE depde IS NULL; 
 
------------------------------------------------------------
+
 ## Consultas con Predicados Cuantificados: ALL, SOME o ANY.
------------------------------------------------------------
+
 
 ####1
 
@@ -322,9 +322,9 @@ WHERE salar <ALL (SELECT 20*comis
                   WHERE comis IS NOT NULL)
 ORDER BY 1; 
 
------------------------------------
+
 ## Consultas con Predicados BETWEEN 
------------------------------------
+
 
 ####1
 
@@ -340,9 +340,9 @@ FROM EMPLEADOS
 WHERE comis is not null AND salar NOT BETWEEN numhi*720 AND comis*50*numhi
 ORDER BY 1;
 
-------------------------
+
 ## LIKE
-------------------------
+
 
 ####1
 
@@ -365,9 +365,9 @@ FROM DEPARTAMENTOS
 WHERE nomde LIKE '%SECTOR%'
 ORDER BY 1;
 
--------------------------------
+
 ## Consultas con Predicados IN
--------------------------------
+
 
 ####1
 
@@ -394,9 +394,8 @@ WHERE direc IN (SELECT direc
                 WHERE nomde IN('DIRECC.COMERCIAL', 'PERSONAL'))
 ORDER BY 2 DESC;
 
-----------------------------------
 ## Consultas con Predicados EXISTS
-----------------------------------
+
 
 ####1
 
@@ -432,9 +431,9 @@ AND EXISTS (SELECT *
            FROM empleados
            WHERE numde = 100 AND salar > 3000);
 
-----------------------------------
+
 ## Más Consultas con Predicados
-----------------------------------
+
 
 ####1
 
