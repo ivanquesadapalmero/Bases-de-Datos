@@ -1,22 +1,21 @@
-A contini lasdkjfh askldjfh askljdfh askljdfh aklsjd f:
- 
+
 ~~~
 ---------------------------------
--- ALTER SESSION
+## ALTER SESSION
 ---------------------------------
 
 ALTER SESSION SET NLS_DATE_FORMAT='DD/MM/YYYY';
 
 
 ---------------------------------
--- BORRAR TABLAS ANTIGUAS
+## BORRAR TABLAS ANTIGUAS
 ---------------------------------
 DROP TABLE CENTROS CASCADE CONSTRAINTS;
 DROP TABLE DEPARTAMENTOS CASCADE CONSTRAINTS;
 DROP TABLE EMPLEADOS CASCADE CONSTRAINTS;
 
 ---------------------------------
--- CREAR TABLAS
+## CREAR TABLAS
 ---------------------------------
 create table CENTROS(
 	NUMCE NUMBER(4),  
@@ -55,7 +54,7 @@ create table EMPLEADOS(
 
 
 ---------------------------------
--- INSERTAR DATOS
+## INSERTAR DATOS
 ---------------------------------
 
 -- CENTROS (Numce, Nomce, Se�as)
@@ -111,7 +110,7 @@ INSERT INTO EMPLEADOS VALUES(550, 780, '10/01/1970', '21/01/1998', 600,  120,  0
 
 
 -----------------------------
---CONSULTAS SENCILLAS
+## CONSULTAS SENCILLAS
 -----------------------------
 
 -- 1. Departamentos con director en funciones.
@@ -171,7 +170,7 @@ WHERE numde = 110 AND comis is not null
 order by 1;
 
 ------------------------------
--- CONSULTAS CON PREDICADOS BÁSICOS
+## CONSULTAS CON PREDICADOS BÁSICOS
 ------------------------------
 
 -- 1. Departamentos cuyo presupuesto es inferior a 30.000 €.
@@ -269,7 +268,7 @@ FROM DEPARTAMENTOS
 WHERE depde IS NULL; 
 
 -----------------------------------------------------------
--- Consultas con Predicados Cuantificados: ALL, SOME o ANY.
+## Consultas con Predicados Cuantificados: ALL, SOME o ANY.
 -----------------------------------------------------------
 
 -- 1
@@ -324,7 +323,7 @@ WHERE salar <ALL (SELECT 20*comis
 ORDER BY 1; 
 
 -----------------------------------
---Consultas con Predicados BETWEEN 
+## Consultas con Predicados BETWEEN 
 -----------------------------------
 
 -- 1
@@ -342,7 +341,7 @@ WHERE comis is not null AND salar NOT BETWEEN numhi*720 AND comis*50*numhi
 ORDER BY 1;
 
 ------------------------
--- LIKE
+## LIKE
 ------------------------
 
 -- 1
@@ -367,7 +366,7 @@ WHERE nomde LIKE '%SECTOR%'
 ORDER BY 1;
 
 -------------------------------
--- Consultas con Predicados IN
+## Consultas con Predicados IN
 -------------------------------
 
 -- 1
@@ -396,7 +395,7 @@ WHERE direc IN (SELECT direc
 ORDER BY 2 DESC;
 
 ----------------------------------
--- Consultas con Predicados EXISTS
+## Consultas con Predicados EXISTS
 ----------------------------------
 
 -- 1
@@ -425,17 +424,16 @@ AND EXISTS (SELECT *
             FROM EMPLEADOS
             WHERE numde = 100 AND salar > 2750);
 			
--- 4
-
+~~~ .sql
 SELECT nomem, salar
 FROM empleados
 WHERE numde = 100
 AND EXISTS (SELECT *
            FROM empleados
            WHERE numde = 100 AND salar > 3000);
-
+~~~
 ----------------------------------
--- Más Consultas con Predicados
+## Más Consultas con Predicados
 ----------------------------------
 
 -- 1
