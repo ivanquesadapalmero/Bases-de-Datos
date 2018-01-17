@@ -487,6 +487,66 @@ SELECT nomde "Nombre de Departamento", tidir "Tipo director", presu || '.000' AS
 FROM departamentos
 WHERE presu > 30 or depde is null;
 
+-------------------------------------
+-- Consultas con FECHAS
+-------------------------------------
+
+-- 1
+
+SELECT nomem, fecna "NACIMIENTO"
+FROM empleados
+WHERE EXTRACT(MONTH FROM fecna) = 11
+ORDER BY 1;
+
+-- 2
+
+SELECT nomen
+FROM empleados
+WHERE TO_CHAR(fecna, 'DD/MM') = TO_CHAR(SYSDATE, 'DD/MM');
+--------------------------------------------------------------
+SELECT nomem
+FROM empleados
+WHERE EXTRACT(DAY FROM SYSDATE) = EXTRACT(DAY FROM fecna) 
+      AND EXTRACT(MONTH FROM SYSDATE) = EXTRACT(MONTH FROM fecna);
+	  
+----------------------------------------
+-- Consultas con funciones de AGREGACIÓN
+----------------------------------------
+
+-- 1
+
+SELECT AVG(salar) "Salario medio", MIN(salar) "Salario mínimo", MAX(salar) "Salario máximo"
+FROM empleados;
+
+-- 2
+
+SELECT salar, nomem
+FROM empleados
+WHERE ABS(salar - (SELECT max(salar) FROM empleados))< 
+0.4 * (SELECT max(salar) FROM empleados) 
+ORDER BY 2;
+
+-- 3
+
+SELECT ROUND((SYSDATE-MIN(fecna)) / 365) "Edad"
+FROM empleados
+WHERE numde = 110;
+
+-- 4
+
+SELECT nomem, ROUND((SYSDATE-fecna) / 365) "Edad"
+FROM empleados
+WHERE numde = 110 AND ROUND((SYSDATE-fecna) / 365) = (
+  SELECT ROUND((SYSDATE - MIN(fecna)) / 365)
+  FROM empleados
+  WHERE numde = 110
+)
+
+-- 5
+
+SELECT COUNT(numem), COUNT(DISTINCT comis), sum(comis)
+FROM empleados
+WHERE numde = 112;
 
 
 
