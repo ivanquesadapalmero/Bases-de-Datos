@@ -548,6 +548,48 @@ SELECT COUNT(numem), COUNT(DISTINCT comis), sum(comis)
 FROM empleados
 WHERE numde = 112;
 
+-----------------------------------
+-- Agrupamiento de filas: GROUP BY
+-----------------------------------
+
+-- 1
+
+SELECT numde, COUNT(numem)
+FROM empleados
+GROUP BY numde;
+
+-- 2
+
+SELECT d.numde, ROUND(AVG(e.salar)) "Salario medio", ROUND(MIN(e.salar)) "Salario mínimo", ROUND(MAX(e.salar)) "Salario máximo"
+FROM departamentos d, empleados e
+WHERE d.numde = e.numde
+GROUP BY d.numde;
+
+--3
+
+SELECT comis, ROUND(AVG(salar)) "Salario Medio", ROUND(AVG((SYSDATE-fecna) / 365))"Edad Media"
+FROM empleados
+GROUP BY comis;
+
+-- 4
+
+SELECT comis, ROUND(AVG(salar)) "Salario Medio", TRUNC(AVG((SYSDATE-fecna) / 365))"Edad Media"
+FROM empleados
+GROUP BY comis;
+
+-- 5
+
+SELECT numde, comis, ROUND(AVG(salar)) "Salario Medio", TRUNC(AVG((SYSDATE-fecna) / 365))"Edad Media"
+FROM empleados
+GROUP BY numde, comis
+ORDER BY 1;
+
+-- 6
+
+SELECT numde, COUNT(numem), SUM(salar)
+FROM empleados
+HAVING MAX(salar) > 2500
+GROUP BY numde;
 
 
 
